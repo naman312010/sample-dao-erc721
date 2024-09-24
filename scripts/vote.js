@@ -16,7 +16,7 @@ async function main() {
 // 0 = Against, 1 = For, 2 = Abstain for this example
 async function vote(proposalId, voteWay, reason, govAddress) {
   console.log("Voting...");
-  const governor = await ethers.getContractAt("GovernorGA",govAddress);
+  const governor = await ethers.getContractAt("GovernorFA",govAddress);
   const voteTx = await governor.castVoteWithReason(proposalId, voteWay, reason);
   const voteTxReceipt = await voteTx.wait(1);
   console.log(voteTxReceipt.events[0].args.reason);

@@ -1,5 +1,5 @@
 const ethers = require("ethers");
-const abi = require("./GreenAntCore.json");
+const abi = require("./FreeAntCore.json");
 require('dotenv').config();
 async function deployProject(
     _projectId, //string project id eg: "VIET1"
@@ -12,9 +12,9 @@ async function deployProject(
     let url = `https://polygon-mumbai.g.alchemy.com/v2/${process.env.alchemy_key_mumbai}`;
     let provider = new ethers.JsonRpcProvider(url);
     let account = await ethers.BaseWallet(process.env.genesis1_pvt_key);
-    let GAcore = ethers.Contract(`${process.env.mumbai_core_addr}`,abi, provider);
+    let FAcore = ethers.Contract(`${process.env.mumbai_core_addr}`,abi, provider);
     
-    console.log(await GAcore.connect(account).deployProject(
+    console.log(await FAcore.connect(account).deployProject(
         _projectId,
         recepients, //contains project promoter/farmer,treasury/investment fund,reserve,carbon_standard
         recepientShares,

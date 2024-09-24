@@ -25,7 +25,7 @@ contract NFTreeCollection is ERC721AQueryable, Votes,ERC2981 {
         string memory _daoVersion,
         address _defRoyaltyRecipient, // treasury/investment fund
         uint96 _defRoyaltyNumerator // out of 10000
-    ) ERC721A(colName, symbol) EIP712("GA-DAO", _daoVersion) {
+    ) ERC721A(colName, symbol) EIP712("FA-DAO", _daoVersion) {
         require(_manager != address(0), "Project: Manager address cannot be 0");
         manager = _manager;
         baseURI = _baseUri;

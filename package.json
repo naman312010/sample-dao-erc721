@@ -1,5 +1,5 @@
 {
-  "name": "dao-and-token",
+  "name": "sample-dao-and-token",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GreenAnt-DAO/dao-and-token.git"
+    "url": "git+https://github.com/naman312010/sample-dao-and-token.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GreenAnt-DAO/dao-and-token/issues"
+    "url": "https://github.com/naman312010/sample-dao-and-token/issues"
   },
-  "homepage": "https://github.com/GreenAnt-DAO/dao-and-token#readme",
+  "homepage": "https://github.com/naman312010/sample-dao-and-token#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "4.0.0",
     "@openzeppelin/hardhat-upgrades": "3.0.2",

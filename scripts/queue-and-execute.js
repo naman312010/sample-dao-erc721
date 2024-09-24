@@ -7,12 +7,12 @@ const { moveBlocks } = require("../utils/move-blocks");
 const { moveTime } = require("../utils/move-time");
 
 async function queueAndExecute(args, functionNameToCall, coreAddress, governorAddress, proposalDescription) {
-  const core = await ethers.getContractAt("GreenAntCore", coreAddress);
+  const core = await ethers.getContractAt("FreeAntCore", coreAddress);
   const encodedFunctionCall = core.interface.encodeFunctionData(functionNameToCall, args);
   const descriptionHash = ethers.keccak256(ethers.toUtf8Bytes(proposalDescription));
   // could also use ethers.id(PROPOSAL_DESCRIPTION)
 
-  const governor = await ethers.getContractAt("GovernorGA", governorAddress);
+  const governor = await ethers.getContractAt("GovernorFA", governorAddress);
   console.log("Queueing...");
   const queueTx = await governor.queue([core.address], [0], [encodedFunctionCall], descriptionHash);
   await queueTx.wait(1);

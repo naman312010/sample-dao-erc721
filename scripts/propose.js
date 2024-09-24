@@ -12,8 +12,8 @@ const {
 } = require("../helper-hardhat-config");
 
 async function propose(args, functionToCall, proposalDescription, govAddress, coreAddress) {
-  const governor = await ethers.getContractAt("GovernorGA", govAddress);
-  const core = await ethers.getContractAt("GreenAntCore",coreAddress );
+  const governor = await ethers.getContractAt("GovernorFA", govAddress);
+  const core = await ethers.getContractAt("FreeAntCore",coreAddress );
   const encodedFunctionCall = core.interface.encodeFunctionData(functionToCall, args);
   console.log(`Proposing ${functionToCall} on ${core.address} with ${args}`);
   console.log(`Proposal Description:\n  ${proposalDescription}`);

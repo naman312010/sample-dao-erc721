@@ -53,7 +53,7 @@ describe("Governance", async () => {
 
     // //////////////////////////////////////Governor
 
-    const governor = await ethers.deployContract("GovernorGA", [
+    const governor = await ethers.deployContract("GovernorFA", [
       await nftree.getAddress(),
       await timelock.getAddress(),
       VOTING_DELAY,
@@ -62,7 +62,7 @@ describe("Governance", async () => {
       QUORUM_PERCENTAGE
     ], { from: genesis });
     await governor.waitForDeployment();
-    console.log("GovernorGA address:", await governor.getAddress());
+    console.log("GovernorFA address:", await governor.getAddress());
 
     // //////////////////////////////////////setup governance
 
@@ -83,9 +83,9 @@ describe("Governance", async () => {
     await timelock.renounceRole(ADMIN_ROLE, genesis.address);
 
     ///////////////////////////////////////greenant core
-    const Core = await ethers.getContractFactory("GreenAntCore");
+    const Core = await ethers.getContractFactory("FreeAntCore");
     // const core = await upgrades.deployProxy(Core, [await timelock.getAddress(), await nftree.getAddress()]);
-    const core = await ethers.deployContract("GreenAntCore", [
+    const core = await ethers.deployContract("FreeAntCore", [
       await timelock.getAddress(),
       await nftree.getAddress()
     ], { from: genesis });
@@ -112,7 +112,7 @@ describe("Governance", async () => {
     const reason = "I lika do da cha cha";
 
 
-    it("GAToken can only be paused through governance", async () => {
+    it("FAToken can only be paused through governance", async () => {
       const { nftree, timelock, governor, core, genesis, genesis2, random, random2, random3, random4 } = await loadFixture(deployFixture);
       await expect(core.pause()).to.be.reverted;
     });

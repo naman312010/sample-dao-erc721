@@ -17,7 +17,7 @@ const {
 
 async function main() {
 
-  const [genesis1, genesis2, GATreasury] = await ethers.getSigners();
+  const [genesis1, genesis2, FATreasury] = await ethers.getSigners();
 
   /////////////////////////////////////////////////////////////////voting token/NFTree
   const nftree = await ethers.deployContract("NFTreeCollection", [
@@ -49,7 +49,7 @@ async function main() {
 
   // //////////////////////////////////////Governor
 
-  const governor = await ethers.deployContract("GovernorGA", [
+  const governor = await ethers.deployContract("GovernorFA", [
     await nftree.getAddress(),
     await timelock.getAddress(),
     VOTING_DELAY,
@@ -58,7 +58,7 @@ async function main() {
     QUORUM_PERCENTAGE
   ], { from: genesis1 });
   await governor.waitForDeployment(10);
-  console.log("GovernorGA address:", await governor.getAddress());
+  console.log("GovernorFA address:", await governor.getAddress());
 
   
 
@@ -81,7 +81,7 @@ async function main() {
   await timelock.renounceRole(ADMIN_ROLE, genesis1.address);
 
   ///////////////////////////////////////greenant core
-  const core = await ethers.deployContract("GreenAntCore", [
+  const core = await ethers.deployContract("FreeAntCore", [
     await timelock.getAddress(),
     await nftree.getAddress()
   ], { from: genesis1 });
@@ -127,7 +127,7 @@ async function main() {
 
   await hre.run("verify:verify", {
     address: await governor.getAddress(),
-    contract: "contracts/governance/GovernorGA.sol:GovernorGA",
+    contract: "contracts/governance/GovernorFA.sol:GovernorFA",
     constructorArguments: [
       await nftree.getAddress(),
       await timelock.getAddress(),
@@ -140,20 +140,20 @@ async function main() {
 
   await hre.run("verify:verify", {
     address: await core.getAddress(),
-    contract: "contracts/GreenAntCore.sol:GreenAntCore",
+    contract: "contracts/FreeAntCore.sol:FreeAntCore",
     constructorArguments: [
       await timelock.getAddress(),
       await nftree.getAddress()
     ],
   });
 
-  /////////////////////GA Token
+  /////////////////////FA Token
 
-   // const gaToken = await ethers.deployContract("GAToken", [
-  //   "GAToken", "GAT", await core.getAddress(), genesis2.address, await nftree.getAddress(), GATreasury.address
+   // const gaToken = await ethers.deployContract("FAToken", [
+  //   "FAToken", "FAT", await core.getAddress(), genesis2.address, await nftree.getAddress(), FATreasury.address
   // ], { from: genesis1 });
   // await gaToken.waitForDeployment(5);
-  // console.log("GAToken address:", await gaToken.getAddress());
+  // console.log("FAToken address:", await gaToken.getAddress());
 }
 
 main().catch((error) => {
